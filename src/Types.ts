@@ -30,6 +30,6 @@ export type Instructions={
     Name:string;
 }
 export type Category={
-    Id:number;
-    Name:string
+    Id:number,
+    Name:string,
 }

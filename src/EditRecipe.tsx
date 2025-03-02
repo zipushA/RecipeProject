@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Ingridents, Recipe } from './Types';
 import { CircularProgress, Card, CardContent, Typography, Button, TextField, Grid, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
+import { CatContext } from './categoriesContext';
 
 const EditRecipe = () => {
     const { id } = useParams(); // מקבלים את ה-ID של המתכון מה-URL
     const [recipe, setRecipe] = useState<Recipe | null>(null); // טיפוס עבור המתכון
     const [loading, setLoading] = useState(false); // מצב טעינה
+     const { categories } = useContext(CatContext);
     const navigate = useNavigate();
 
     const fetchRecipe = async () => {
@@ -139,17 +141,14 @@ const EditRecipe = () => {
                         />
                         <FormControl fullWidth required>
                             <InputLabel id="CategoryId-label">קטגוריה</InputLabel>
-                            <Select
-                                labelId="CategoryId-label"
-                                name="CategoryId"
-                                value={recipe.CategoryId ? recipe.CategoryId.toString() : ''}
-                                onChange={handleChange}
-                            >
-                                <MenuItem value={1}>עוגות</MenuItem>
-                                <MenuItem value={2}>בשרי</MenuItem>
-                                <MenuItem value={3}>חלבי</MenuItem>
-                                <MenuItem value={4}>סלטים</MenuItem>
-                            </Select>
+                          <Select
+                                                      labelId="CategoryId-label"
+                                                      name="CategoryId"
+                                                      value={recipe.CategoryId ? recipe.CategoryId.toString() : ''} // עדכון ה-value
+                                                      onChange={handleChange}
+                                                  >
+                                                      {categories&&categories.map((item)=> <MenuItem key={item.Id} value={item.Id}>{item.Name}</MenuItem>)}
+                                                  </Select>
                         </FormControl>
                         <TextField
                             label="כתובת תמונה"

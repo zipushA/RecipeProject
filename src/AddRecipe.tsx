@@ -1,12 +1,17 @@
 
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import { Ingridents, Recipe } from './Types';
+import {  Recipe } from './Types';
 import { TextField, Button, Grid, Typography, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { userContext } from './userContext';
+import { CatContext } from './categoriesContext';
+
 
 const AddRecipe: React.FC = () => {
     const { Myuser } = useContext(userContext);
+    const { categories } = useContext(CatContext);
+    console.log(categories);
+    
     const [recipe, setRecipe] = useState<Recipe>({
         Id: 0,
         Name: '',
@@ -88,7 +93,7 @@ const AddRecipe: React.FC = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}style={{ marginTop: '64px' }}>
             <Typography variant="h4" gutterBottom>
                 Add Recipe
             </Typography>
@@ -126,10 +131,7 @@ const AddRecipe: React.FC = () => {
                             value={recipe.CategoryId ? recipe.CategoryId.toString() : ''} // עדכון ה-value
                             onChange={handleChange}
                         >
-                            <MenuItem value={1}>עוגות</MenuItem>
-                            <MenuItem value={2}>בשרי</MenuItem>
-                            <MenuItem value={3}>חלבי</MenuItem>
-                            <MenuItem value={4}>סלטים</MenuItem>
+                            {categories&&categories.map((item)=> <MenuItem key={item.Id} value={item.Id}>{item.Name}</MenuItem>)}
                         </Select>
                     </FormControl>
                 </Grid>

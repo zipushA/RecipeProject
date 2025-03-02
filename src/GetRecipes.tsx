@@ -8,7 +8,6 @@ import { userContext } from './userContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-
 const GetRecipes = () => {
     const { Myuser } = useContext(userContext);
     const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -17,7 +16,6 @@ const GetRecipes = () => {
     const [filterDuration, setFilterDuration] = useState<number | ''>('');
     const [filterDifficulty, setFilterDifficulty] = useState('');
     const [filterUserId, setFilterUserId] = useState<number | ''>('');
-
     const navigate = useNavigate();
 
     const handleDelete = async (recipeId: number, UserId: number) => {
@@ -46,6 +44,9 @@ const GetRecipes = () => {
         try {
             const response = await axios.get<Recipe[]>('http://localhost:8080/api/recipe');
             setRecipes(response.data);
+            console.log(recipes);
+            
+            
         } catch (error) {
             console.error("Error fetching recipes:", error);
         } finally {
@@ -74,21 +75,6 @@ const GetRecipes = () => {
             ) : (
                 <>
                     <Grid container spacing={2} style={{ marginBottom: '20px', marginTop: '20px' }}>
-                        <Grid item xs={12} sm={3}>
-                            <TextField
-                                select
-                                label="קטגוריה"
-                                value={filterCategory}
-                                onChange={(e) => setFilterCategory(e.target.value)}
-                                fullWidth
-                            >
-                                <MenuItem value="">כל הקטגוריות</MenuItem>
-                                <MenuItem value="1">עוגות</MenuItem>
-                                <MenuItem value="2">בשרי</MenuItem>
-                                <MenuItem value="3">חלבי</MenuItem>
-                                <MenuItem value="4">סלטים</MenuItem>
-                            </TextField>
-                        </Grid>
                         <Grid item xs={12} sm={3}>
                             <TextField
                                 type="number"
@@ -142,7 +128,6 @@ const GetRecipes = () => {
                                             <Typography variant="h5" gutterBottom>{recipe.Name}</Typography>
                                             <Typography variant="body2" paragraph>{recipe.Description}</Typography>
                                             <Typography variant="body2" gutterBottom> רמת קושי - {recipe.Difficulty}</Typography>
-                                            <Typography variant="body2" gutterBottom> - {recipe.UserId}</Typography>
                                             <Typography variant="body2" gutterBottom> זמן הכנה - {recipe.Duration} דקות </Typography>
                                             <Typography variant="body2" gutterBottom> {recipe.CategoryId} - סוג</Typography>
                                             <img src={recipe.Img} alt={recipe.Name} style={{ width: '100%', height: 'auto' }} />
