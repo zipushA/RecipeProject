@@ -10,8 +10,6 @@ import { CatContext } from './categoriesContext';
 const AddRecipe: React.FC = () => {
     const { Myuser } = useContext(userContext);
     const { categories } = useContext(CatContext);
-    console.log(categories);
-    
     const [recipe, setRecipe] = useState<Recipe>({
         Id: 0,
         Name: '',
@@ -20,7 +18,7 @@ const AddRecipe: React.FC = () => {
         Duration: 0,
         Description: '',
         UserId: 0,
-        CategoryId: 0,
+        Categoryid: 0,
         Img: '',
         Ingridents: [{ Name: '', Count: '', Type: '' }] // המרכיבים בפורמט הנכון
     });
@@ -48,7 +46,7 @@ const AddRecipe: React.FC = () => {
         const { name, value } = e.target;
         setRecipe((prevRecipe) => ({
             ...prevRecipe,
-            [name]: name === "Difficulty" || name === "CategoryId" ? value : ["Duration", "UserId", "CategoryId"].includes(name) ? Number(value) : value
+            [name]: name === "Difficulty" || name === "Categoryid" ? value : ["Duration", "UserId", "CategoryId"].includes(name) ? Number(value) : value
         }));
     };
 
@@ -75,16 +73,14 @@ const AddRecipe: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (Myuser) {        
-            console.log("📤 Recipe before sending:", JSON.stringify(recipe, null, 2));
+
             const recipeWithUserId = {
                 ...recipe,
                 UserId: Myuser.Id // הנחה ש-Myuser כולל שדה Id
             };    
             try {
                 const response = await axios.post('http://localhost:8080/api/recipe', recipeWithUserId);
-                console.log('✅ Recipe added successfully:', response.data);
             } catch (error) {
-                console.error('❌ Error adding recipe:', error);
             }
         }
         else{
@@ -124,11 +120,11 @@ const AddRecipe: React.FC = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <FormControl fullWidth required>
-                        <InputLabel id="CategoryId-label">Category</InputLabel>
+                        <InputLabel id="Categoryid-label">Category</InputLabel>
                         <Select
-                            labelId="CategoryId-label"
+                            labelId="Categoryid-label"
                             name="CategoryId"
-                            value={recipe.CategoryId ? recipe.CategoryId.toString() : ''} // עדכון ה-value
+                            value={recipe.Categoryid ? recipe.Categoryid.toString() : ''} // עדכון ה-value
                             onChange={handleChange}
                         >
                             {categories&&categories.map((item)=> <MenuItem key={item.Id} value={item.Id}>{item.Name}</MenuItem>)}

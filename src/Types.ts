@@ -15,7 +15,7 @@ export type Recipe = {
     Duration: number; // זמן הכנה
     Description: string; // תיאור קצר
     UserId: number; // משתמש מוסיף
-    CategoryId: number; // מזהה קטגוריה
+    Categoryid: number; // מזהה קטגוריה
     Img: string; // קישור לתמונה מתאימה
     Ingridents: Ingridents[]; // מערך של מרכיבים
 };

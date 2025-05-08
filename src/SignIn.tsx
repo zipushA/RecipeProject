@@ -31,7 +31,6 @@ const SignIn = () => {
     console.log(data);
     try {
       const response = await axios.post('http://localhost:8080/api/user/sighin', data);
-      console.log('Success:', response.data);
       setMsg("נרשמת בהצלחה");
       setMyUser(data);
       reset();

@@ -24,14 +24,12 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<user> = async () => {
     try {
+      
       const res = await axios.post<user>("http://localhost:8080/api/user/login", 
         { UserName: name, Password: pass },
         { headers: { 'Content-Type': 'application/json' } }
       );
       setMyUser(res.data);
-      console.log('Success:', res.data);
-
-       
       reset();
       setMsg(`${res.data.Name} ההתחברת בהצלחה`);
     } catch (error: any) {

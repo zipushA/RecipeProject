@@ -60,7 +60,7 @@ const GetRecipes = () => {
 
     const filteredRecipes = recipes.filter(recipe => {
         return (
-            (filterCategory ? recipe.CategoryId.toString() === filterCategory : true) &&
+            (filterCategory ? recipe.Categoryid.toString() === filterCategory : true) &&
             (filterDuration !== '' ? recipe.Duration <= filterDuration : true) && // שינוי כאן
             (filterDifficulty ? recipe.Difficulty === filterDifficulty : true) &&
             (filterUserId ? recipe.UserId === filterUserId : true)
@@ -129,7 +129,7 @@ const GetRecipes = () => {
                                             <Typography variant="body2" paragraph>{recipe.Description}</Typography>
                                             <Typography variant="body2" gutterBottom> רמת קושי - {recipe.Difficulty}</Typography>
                                             <Typography variant="body2" gutterBottom> זמן הכנה - {recipe.Duration} דקות </Typography>
-                                            <Typography variant="body2" gutterBottom> {recipe.CategoryId} - סוג</Typography>
+                                            <Typography variant="body2" gutterBottom> {recipe.Categoryid} - סוג</Typography>
                                             <img src={recipe.Img} alt={recipe.Name} style={{ width: '100%', height: 'auto' }} />
                                             <Typography variant="h6" gutterBottom>מרכיבים</Typography>
 

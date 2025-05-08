@@ -34,7 +34,6 @@ const EditRecipe = () => {
             try {
                 console.log("before axios",recipe)
                const res= await axios.post("http://localhost:8080/api/recipe/edit", recipe); // עדכון המתכון
-                console.log("after axios",res.data)
                 navigate('/'); // הפניית המשתמש לדף הראשי לאחר העדכון
             } catch (error) {
                 console.error("Error updating recipe:", error);
@@ -140,11 +139,11 @@ const EditRecipe = () => {
                             margin="normal"
                         />
                         <FormControl fullWidth required>
-                            <InputLabel id="CategoryId-label">קטגוריה</InputLabel>
+                            <InputLabel id="Categoryid-label">קטגוריה</InputLabel>
                           <Select
-                                                      labelId="CategoryId-label"
-                                                      name="CategoryId"
-                                                      value={recipe.CategoryId ? recipe.CategoryId.toString() : ''} // עדכון ה-value
+                                                      labelId="Categoryid-label"
+                                                      name="Categoryid"
+                                                      value={recipe.Categoryid ? recipe.Categoryid.toString() : ''} // עדכון ה-value
                                                       onChange={handleChange}
                                                   >
                                                       {categories&&categories.map((item)=> <MenuItem key={item.Id} value={item.Id}>{item.Name}</MenuItem>)}

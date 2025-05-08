@@ -12,8 +12,6 @@ const Home = () => {
     try {
       const res = await axios.get("http://localhost:8080/api/category");
       setCategories(res.data);
-      console.log(res.data)
-      console.log(categories)
     } catch (error) {
       console.error("Error fetching categories", error);
     }
